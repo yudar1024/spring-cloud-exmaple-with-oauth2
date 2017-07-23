@@ -1,0 +1,47 @@
+ribbon:
+  ConnectTimeout: 600000
+  ReadTimeout: 600000
+  eureka:
+    enabled: true
+
+#单个访问请求持续时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+  rabbitmq:
+    host: localhost
+  zipkin:
+    enabled: true
+    baseUrl: http://localhost:12000/
+  sleuth:
+    stream:
+      enabled: true
+    sampler:
+     # 采样率，默认0.1即10%,如需测试时每次都看到trace则修改为1.0，但对性能有影响，注意上线时修改为合理值
+      percentage: 1.0
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: false
+    register-with-eureka: false
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 100000
+debug: true

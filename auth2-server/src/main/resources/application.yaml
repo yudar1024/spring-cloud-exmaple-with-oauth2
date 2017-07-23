@@ -1,0 +1,53 @@
+
+debug: true
+
+
+ribbon:
+  ConnectTimeout: 600000
+  ReadTimeout: 600000
+  eureka:
+    enabled: true
+
+#单个访问请求持续时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+server:
+  port: 10086
+  context-path: /uaa
+
+spring:
+  application:
+    name: auth2-server
+  rabbitmq:
+    host: localhost
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/auth2db?serverTimezone=CST
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: create
+  zipkin:
+    enabled: true
+    baseUrl: http://localhost:12000/
+  sleuth:
+    stream:
+      enabled: true
+    sampler:
+     # 采样率，默认0.1即10%,如需测试时每次都看到trace则修改为1.0，但对性能有影响，注意上线时修改为合理值
+      percentage: 1.0
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10

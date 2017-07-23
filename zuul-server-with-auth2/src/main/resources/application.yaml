@@ -1,0 +1,120 @@
+debug: true
+
+
+ribbon:
+  ConnectTimeout: 600000
+  ReadTimeout: 600000
+  eureka:
+    enabled: true
+
+
+#单个访问请求持续时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+
+server:
+  port: 13000
+
+
+
+spring:
+  application:
+    name: zuul-api-getway
+  rabbitmq:
+    host: localhost
+  zipkin:
+    enabled: true
+    baseUrl: http://localhost:12000/
+  sleuth:
+    stream:
+      enabled: true
+    sampler:
+     # 采样率，默认0.1即10%,如需测试时每次都看到trace则修改为1.0，但对性能有影响，注意上线时修改为合理值
+      percentage: 1.0
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+
+
+
+security:
+  oauth2:
+    client:
+      accessTokenUri: http://localhost:10086/uaa/oauth/token
+      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
+      client-secret: secret
+      client-id: client
+    resource:
+      token-info-uri: http://localhost:10086/uaa/oauth/check_token
+#      user-info-uri: http://localhost:9999/uaa/user
+
+zuul:
+  sensitive-headers: '' #Distribute headers cookies to children
+#  add-proxy-headers: true
+  routes:
+#配置方式有3种
+#第一种 serviceid: mappingurl，serviceid为其他服务的spring.application.name,mappingurl 为想要映射的URL 推荐使用这种。
+#    service-template: /servicetlp/**
+#第二种 label:{path，serviceId},serviceId为其他服务的spring.application.name,path 为想要映射的URL, label 为任意的标记字符
+    service-template:
+      path: /servicetlp/**
+      serviceId: service-template
+    auth2-server:
+      path: /oauth2/**
+#      stripPrefix: true
+#      serviceId: auth2-server
+#    从postman 提交的URL 为http://client:secret@localhost:13000/oauth2/uaa/oauth/token， 在zuul 转发的时候。会把/oauth2/** 匹配中的oauth2 部分砍掉。转发的请求就是 url(http://localhost:10086)+/uaa/oauth/token
+      url: http://localhost:10086
+
+#第三种 label:{path，url},url为其他服务的url,path 为想要映射的URL, label 为任意的标记字符。
+#这类配置方式有限制，不会使用eureak的ribbon LB功能。需要配置zuul 自身去做LB，所以不推荐
+#    service1:
+#      path: /service1/**
+#      url: http://localhost:9101
+#    service2:
+#      path: /service2/**
+#      url: http://localhost:9102
+#第三种方式结合zuul 自身配置LB 的部分 开始 配置service1 的LB
+#    service1:
+#      path: /service1/**
+#此处将serviceId 设置为label
+#      serviceId: service1
+#    service2:
+#      path: /service2/**
+#      url: http://localhost:9102
+#禁用ribbon
+#ribbon:
+#  eureka:
+#    enabled: false
+#对每个服务配置LB
+#service1:
+#  ribbon:
+#    listOfServers: http://localhost:9101,http://localhost:9103
+
+#zuul 自身配置LB 的部分 结束
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud: DEBUG
+    org.springframework.web: WARN
