@@ -9,12 +9,6 @@
 	<name>resource-server-jwt-feign</name>
 	<description>resource-server-jwt-feign</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
 
 	<parent>
 		<groupId>com.springcloud.template</groupId>
@@ -99,6 +93,7 @@
 		<dependency>
 			<groupId>com.springcloud.template</groupId>
 			<artifactId>common-security-jwt-lib</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
