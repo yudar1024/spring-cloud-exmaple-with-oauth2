@@ -36,9 +36,10 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Dalston.SR1</spring-cloud.version>
         <mysql.driver.version>6.0.6</mysql.driver.version>
-        <docker.image.prefix>hpedevops</docker.image.prefix>
+        <docker.image.prefix>192.168.10.4</docker.image.prefix>
         <profiles.active>default</profiles.active>
         <test.skip>true</test.skip>
+        <docker.buildArg.HTTP_PROXY>http://192.168.1.130:1081</docker.buildArg.HTTP_PROXY>
     </properties>
 
     <dependencies>
@@ -90,12 +91,32 @@
 
         <plugins>
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.3.4</version>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.21.0</version>
                 <configuration>
-                    <repository>${docker.image.prefix}/${project.groupId}/${project.artifactId}</repository>
-                    <tag>${project.version}</tag>
+                    <verbose>true</verbose>
+                    <dockerHost>tcp://192.168.99.100:2376</dockerHost>
+                    <certPath>C:/Users/chenluo/.docker/machine/machines/default</certPath>
+                    <useColor>true</useColor>
+                    <!--配置默认的docker相关资源放在哪里-->
+                    <sourceDirectory>src/main/docker</sourceDirectory>
+                    <images>
+                        <image>
+                            <name>${docker.image.prefix}/${project.groupId}/${project.artifactId}</name>
+                            <build>
+                                <cleanup></cleanup>
+                                <!--这里的路径会继承configuration 元素下 sourceDirectory 元素的路径，如果这了的值指定为 src 那么整个docker 相关的路径就会是src/main/docker/src 所以这里指定为/即可 另一种方法是这里直接使用<dockerFile>Dockerfile</dockerFile> 来指定具体的文件-->
+                                <!--注意，这个插件dockerfile 中的add copy 命令，文件可以和Docker 不在同一个目录，在子目录中。 assembly元素的子元素name 默认值是maven，所以会生成一个总的文件夹maven 然后相关的资源都在此文件夹中-->
+                                <!--add 与 copy 命令 使用 ADD maven/xxxx.jar /xxxx/xxxx 的形式从子元素中添加。-->
+                                <dockerFileDir>/</dockerFileDir>
+                                <assembly>
+                                    <!--<descriptorRef>artifact-with-dependencies</descriptorRef>-->
+                                    <descriptor>${project.basedir}/src/main/docker/assembly.xml</descriptor>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
             <plugin>
