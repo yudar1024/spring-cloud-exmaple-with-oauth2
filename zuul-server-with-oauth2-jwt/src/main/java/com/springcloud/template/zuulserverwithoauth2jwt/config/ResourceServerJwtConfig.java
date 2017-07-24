@@ -1,4 +1,4 @@
-package com.springcloud.template.common.security.jwt;
+package com.springcloud.template.zuulserverwithoauth2jwt.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,8 +32,10 @@ public class ResourceServerJwtConfig extends ResourceServerConfigurerAdapter{
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and().authorizeRequests()
+        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().
+                authorizeRequests().antMatchers("/auth2jwt/**").permitAll()
+//                .antMatchers("/resjwt/**").permitAll()
+//                .antMatchers("/jwtfgn/**").permitAll()
                 .anyRequest().authenticated();
 
     }

@@ -75,12 +75,18 @@ zuul:
     service-template:
       path: /servicetlp/**
       serviceId: service-template
+    resource-service-jwt:
+      path: /resjwt/**
+      serviceId: resource-service-jwt
     auth2-server-jwt:
       path: /auth2jwt/**
 #      stripPrefix: true
 #      serviceId: auth2-server
 #    从postman 提交的URL 为http://client:secret@localhost:13000/oauth2/uaa/oauth/token， 在zuul 转发的时候。会把/oauth2/** 匹配中的oauth2 部分砍掉。转发的请求就是 url(http://localhost:10086)+/uaa/oauth/token
       url: http://localhost:10087
+    resource-service-jwt-feign:
+      path: /jwtfgn/**
+      serviceId: resource-service-jwt-feign
 
 #第三种 label:{path，url},url为其他服务的url,path 为想要映射的URL, label 为任意的标记字符。
 #这类配置方式有限制，不会使用eureak的ribbon LB功能。需要配置zuul 自身去做LB，所以不推荐

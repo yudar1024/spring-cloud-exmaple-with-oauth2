@@ -8,16 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@RestController("/foo")
 public class WebController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET,path = "/foo")
     public String readFoo() {
         return "read foo " + UUID.randomUUID().toString();
     }
 
     @PreAuthorize("hasAuthority('admin')")
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST,path = "/foo")
     public String writeFoo() {
         return "write foo " + UUID.randomUUID().toString();
     }
