@@ -16,7 +16,8 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
-
+          strategy: SEMAPHORE
+#  shareSecurityContext: true
 
 server:
   port: 9000
@@ -70,3 +71,10 @@ logging:
 security:
   basic:
     enabled: false
+  sessions: stateless
+
+
+#feign:
+#  hystrix:
+#    enabled: false
+
