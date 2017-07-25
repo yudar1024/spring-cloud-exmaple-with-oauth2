@@ -17,6 +17,7 @@
         <module>zuul-server-with-oauth2-jwt</module>
         <module>resource-service-jwt</module>
         <module>resource-server-jwt-feign</module>
+        <module>zipkinserver</module>
 
     </modules>
     <packaging>pom</packaging>
@@ -67,6 +68,16 @@
             <version>1.16.18</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.7.0</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -84,6 +95,7 @@
                 <version>1.16.18</version>
                 <scope>provided</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -137,6 +149,14 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>jcenter-snapshots</id>
+            <name>jcenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
+
     <!--<repositories>-->
     <!--<repository>-->
     <!--<id>ali</id>-->
