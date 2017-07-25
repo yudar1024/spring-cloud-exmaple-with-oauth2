@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: apigateway
-          image: 15.114.100.72/com.springcloud.template/zuul-server-with-oauth2-jwt
+          image: 15.114.100.72:80/com.springcloud.template/zuul-server-with-oauth2-jwt
           imagePullPolicy: Always
           ports:
           - name: server-port

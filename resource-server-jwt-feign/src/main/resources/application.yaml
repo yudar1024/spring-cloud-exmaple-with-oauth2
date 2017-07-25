@@ -11,6 +11,7 @@ ribbon:
 #单个访问请求持续时间
 hystrix:
   command:
+#  default 这里可以是微服务的名称。
     default:
       execution:
         isolation:
