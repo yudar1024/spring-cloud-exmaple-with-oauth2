@@ -37,11 +37,26 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Dalston.SR2</spring-cloud.version>
         <mysql.driver.version>6.0.6</mysql.driver.version>
-        <docker.image.prefix>192.168.10.4:8082</docker.image.prefix>
+        <!--<docker.image.prefix>192.168.10.4:8082</docker.image.prefix>-->
+        <docker.image.prefix>15.114.100.72:80</docker.image.prefix>
         <profiles.active>default</profiles.active>
         <test.skip>true</test.skip>
-        <docker.buildArg.HTTP_PROXY>http://192.168.1.130:1081</docker.buildArg.HTTP_PROXY>
+        <registry.username>admin</registry.username>
+        <registry.password>Harbor12345</registry.password>
+        <!--<docker.buildArg.HTTP_PROXY>http://192.168.1.130:1081</docker.buildArg.HTTP_PROXY>-->
     </properties>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <docker.image.prefix>192.168.10.4:8082</docker.image.prefix>
+                <registry.username>admin</registry.username>
+                <registry.password>admin123</registry.password>
+            </properties>
+        </profile>
+
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -108,8 +123,8 @@
                 <version>0.21.0</version>
                 <configuration>
                     <authConfig>
-                        <username>admin</username>
-                        <password>admin123</password>
+                        <username>${registry.username}</username>
+                        <password>${registry.password}</password>
                     </authConfig>
                     <verbose>true</verbose>
                     <dockerHost>tcp://192.168.99.100:2376</dockerHost>
@@ -142,7 +157,6 @@
                     <runOrder>alphabetical</runOrder>
                     <systemPropertyVariables>
                         <spring.profiles.active>${profiles.active}</spring.profiles.active>
-
                     </systemPropertyVariables>
                     <skip>${test.skip}</skip>
                 </configuration>
