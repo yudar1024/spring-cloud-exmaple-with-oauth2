@@ -30,11 +30,11 @@ spring:
     host: localhost
 #  zipkin:
 #    enabled: false
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/auth2db?serverTimezone=CST
-    driver-class-name: com.mysql.jdbc.Driver
-    username: root
-    password: 123456
+#  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/auth2db?serverTimezone=CST
+#    driver-class-name: com.mysql.jdbc.Driver
+#    username: root
+#    password: 123456
 #  sleuth:
 #    stream:
 #      enabled: true

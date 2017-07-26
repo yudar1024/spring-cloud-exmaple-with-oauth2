@@ -11,7 +11,9 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 60000
+            timeoutInMilliseconds:
+          strategy: SEMAPHORE
+
 server:
   port: 8761
 
@@ -20,9 +22,10 @@ spring:
     name: eureka-server
   rabbitmq:
     host: localhost
-  zipkin:
-    enabled: true
-    baseUrl: http://localhost:12000/
+#   zipkin http 模式的时候才使用这种配置
+#  zipkin:
+#    enabled: true
+#    baseUrl: http://localhost:12000/
   sleuth:
     stream:
       enabled: true

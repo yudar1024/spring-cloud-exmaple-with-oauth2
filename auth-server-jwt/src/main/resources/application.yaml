@@ -16,6 +16,8 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+          strategy: SEMAPHORE
+
 server:
   port: 10087
   context-path: /uaa
@@ -33,10 +35,16 @@ spring:
     password: 123456
   jpa:
     hibernate:
-      ddl-auto: update
-  zipkin:
-    enabled: true
-    baseUrl: http://localhost:12000/
+      ddl-auto: none
+      naming:
+        strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+#  zipkin http 模式的时候才使用
+#  zipkin:
+#    enabled: true
+#    baseUrl: http://localhost:12000/
   sleuth:
     stream:
       enabled: true

@@ -16,6 +16,8 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+          strategy: SEMAPHORE
+
 
 
 server:
@@ -28,9 +30,9 @@ spring:
     name: zuul-api-getway
   rabbitmq:
     host: localhost
-  zipkin:
-    enabled: true
-    baseUrl: http://localhost:12000/
+#  zipkin:
+#    enabled: true
+#    baseUrl: http://localhost:12000/
   sleuth:
     stream:
       enabled: true

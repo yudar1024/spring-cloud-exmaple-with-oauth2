@@ -17,6 +17,7 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+#            feign client 在启用hystrix的情况下，会在hystrix 启动的子线程中发送请求，造成子线程中获取不到securitycontext，从而导致认证失败，改变线程隔离策略为SEMAPHORE，就可以正常传递了
           strategy: SEMAPHORE
 #  shareSecurityContext: true
 
@@ -30,14 +31,22 @@ spring:
     name: resource-service-jwt-feign
   rabbitmq:
     host: localhost
-  zipkin:
-    enabled: true
-    baseUrl: http://localhost:12000/
+#  zipkin:
+#    enabled: true
+#    baseUrl: http://localhost:12000/
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/auth2db?serverTimezone=CST
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
   sleuth:
     stream:
       enabled: true
@@ -73,6 +82,7 @@ security:
   basic:
     enabled: false
   sessions: stateless
+  ignored: /noauth/**, /swagger**,/swagger**/**,/webjars/**,/v2/**, /js/**, /css/**
 
 
 
