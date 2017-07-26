@@ -1,5 +1,8 @@
 debug: true
 
+management:
+  security:
+    enabled: false
 
 ribbon:
   ConnectTimeout: 600000
@@ -78,7 +81,7 @@ logging:
     org.springframework.web: WARN
 
 security:
-  ignored: /noauth/**, /swagger**,/swagger**/**,/webjars/**,/v2/**, /js/**, /css/**
+  ignored: /noauth/**, /swagger**,/swagger**/**,/webjars/**,/v2/**, /js/**, /css/**, /hystrix.stream/**
   basic:
     enabled: false
   sessions: stateless

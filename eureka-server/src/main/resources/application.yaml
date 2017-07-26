@@ -1,3 +1,9 @@
+debug: true
+
+management:
+  security:
+    enabled: false
+
 ribbon:
   ConnectTimeout: 600000
   ReadTimeout: 600000
@@ -47,4 +53,5 @@ eureka:
     waitTimeInMsWhenSyncEmpty: 0
     enable-self-preservation: false
     eviction-interval-timer-in-ms: 100000
-debug: true
+
+

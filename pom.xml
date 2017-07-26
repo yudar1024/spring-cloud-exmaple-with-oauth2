@@ -18,6 +18,7 @@
         <module>resource-service-jwt</module>
         <module>resource-server-jwt-feign</module>
         <module>zipkinserver</module>
+        <module>sa-server</module>
 
     </modules>
     <packaging>pom</packaging>
