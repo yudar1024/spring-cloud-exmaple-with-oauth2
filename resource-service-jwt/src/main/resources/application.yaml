@@ -81,8 +81,9 @@ logging:
     org.springframework.web: WARN
 
 security:
-  ignored: /noauth/**, /swagger**,/swagger**/**,/webjars/**,/v2/**, /js/**, /css/**, /hystrix.stream/**
-  basic:
+#  /mgmt/** 是spring cloud 的管理api 默认path， 在使用spring boot admin的时候，需要将这个路由的保护去掉
+#  参见https://github.com/joshiste/spring-boot-admin-samples/tree/master/oauth2
+  ignored: /noauth/**, /swagger**,/swagger**/**,/webjars/**,/v2/**, /js/**, /css/**, favicon.ico,/mgmt/**  basic:
     enabled: false
   sessions: stateless
 

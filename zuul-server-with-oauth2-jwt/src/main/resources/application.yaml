@@ -24,9 +24,9 @@ server:
   port: 14000
 
 
-
 spring:
   application:
+
     name: zuul-api-getway-jwt
   rabbitmq:
     host: localhost
@@ -54,6 +54,10 @@ eureka:
 security:
   basic:
     enabled: false
+#  /mgmt/** 是spring cloud 的管理api 默认path，由management.context-path: 属性指定， 在使用spring boot admin的时候，需要将这个路由的保护去掉
+#  参见https://github.com/joshiste/spring-boot-admin-samples/tree/master/oauth2
+
+  ignored: /noauth/**, /swagger**,/swagger**/**,/webjars/**,/v2/**, /js/**, /css/**, favicon.ico,/mgmt/**
 #  jwt 方式不需要到授权服务器验证token 使用 公钥解密即可
 #  ignored: /, /**/*.html,/authsec/users/loadByLoginName,/*/swagger**,/*/swagger**/**, /*/webjars/**, /*/v2/**, /*/js/**, /*/css/**
 #  oauth2:
