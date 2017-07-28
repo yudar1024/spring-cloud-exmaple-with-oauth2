@@ -3,6 +3,8 @@ debug: true
 management:
   security:
     enabled: false
+  context-path:
+
 
 
 ribbon:
@@ -20,10 +22,10 @@ hystrix:
           thread:
             timeoutInMilliseconds: 60000
           strategy: SEMAPHORE
-
 server:
   port: 10087
-  context-path: /uaa
+#  使用 spring boot admin 的时候，是从   management.context-path: 的默认值/mgmt 来获取health 信息的。如果这里加了server.context-path =/uaa 那么health的获取url 就会变成/uaa/mgmt springboot 将获取不到信息。
+#  context-path: /uaa
 #  max-http-header-size:8192
 
 spring:

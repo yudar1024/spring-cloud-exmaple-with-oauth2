@@ -85,7 +85,7 @@ zuul:
       path: /resjwt/**
       serviceId: resource-service-jwt
     auth2-server-jwt:
-      path: /auth2jwt/**
+      path: /uaa/**
 #      stripPrefix: true
 #      serviceId: auth2-server
 #    从postman 提交的URL 为http://client:secret@localhost:13000/oauth2/uaa/oauth/token， 在zuul 转发的时候。会把/oauth2/** 匹配中的oauth2 部分砍掉。转发的请求就是 url(http://localhost:10086)+/uaa/oauth/token
