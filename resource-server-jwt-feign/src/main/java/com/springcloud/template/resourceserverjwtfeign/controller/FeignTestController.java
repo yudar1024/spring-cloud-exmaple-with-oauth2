@@ -20,7 +20,7 @@ public class FeignTestController {
         return resourceServerJwtClient.helloJwt();
 
     }
-    @RequestMapping("current")
+    @RequestMapping("/current")
     public String currentUser(){
         String name= SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         log.info("current user {}",name);
