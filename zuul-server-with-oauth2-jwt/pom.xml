@@ -86,11 +86,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.springcloud.template</groupId>
-			<artifactId>common-security-jwt-lib</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.springcloud.template</groupId>-->
+			<!--<artifactId>common-security-jwt-lib</artifactId>-->
+			<!--<version>${project.version}</version>-->
+		<!--</dependency>-->
 	</dependencies>
 
 	<build>
