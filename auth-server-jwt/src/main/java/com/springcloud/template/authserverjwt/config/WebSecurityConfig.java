@@ -29,18 +29,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .httpBasic();
     }
 
-    // cors 设置方案
-    @Bean
-    public FilterRegistrationBean corsFilter () {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);//这个设置是关键，没有这个设置启动不了，而且实际也不会生效
-        return bean;
-    }
+
 }
