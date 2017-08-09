@@ -18,15 +18,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        cors 设置，方案一
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        config.addAllowedOrigin("*");
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//        source.registerCorsConfiguration("/**", config);
-//        http.cors().configurationSource(source).and()
         http
                 .csrf().disable()
                 .exceptionHandling()
@@ -38,9 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .httpBasic();
     }
 
-    // cors 设置方案方案2
+    // cors 设置方案
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
     public FilterRegistrationBean corsFilter () {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
@@ -50,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);//这个设置是关键，没有这个设置启动不了，而且实际也不会生效
         return bean;
     }
 }

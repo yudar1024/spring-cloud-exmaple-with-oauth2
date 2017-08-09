@@ -13,6 +13,7 @@
     <!-- Appender to log to file in a JSON format TCP  manner -->
     <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>192.168.10.4:5000</destination>
+        <!--<destination>15.114.100.21:5000</destination>-->
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
                 <mdc />
@@ -22,7 +23,7 @@
                 <pattern>
                     <pattern>
                         {
-                        "serviceName": "resourceServer"
+                        "serviceName": "${springAppName:-}"
                         }
                     </pattern>
                 </pattern>
@@ -96,6 +97,6 @@
     <root level="INFO">
         <appender-ref ref="console"/>
         <appender-ref ref="STASH"/>
-        <!--<appender-ref ref="flatfile"/>-->
+        <appender-ref ref="flatfile"/>
     </root>
 </configuration>
