@@ -1,0 +1,48 @@
+management:
+  security:
+    enabled: false
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud: DEBUG
+    org.springframework.web: WARN
+
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.houston.entsvcs.net/DragonCloud/devops_configrepo.git     #git 仓库地址
+          clone-on-start: true    #启动时clone
+          force-pull: true  #强制拉取更新
+          basedir: D:/configrepo/devops #本地储存位置
+#          username:                                                         # Git仓库的账号
+#          password:                                                         # Git仓库的密码
+    bus:
+      trace:
+        enabled: true     # 开启cloud bus的跟踪
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: devops
+    password: devops
+  sleuth:
+    enabled: true
+    sampler:
+      percentage: 1.0
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
